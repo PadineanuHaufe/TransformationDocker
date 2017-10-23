@@ -1,7 +1,7 @@
 version: '2'
 services:
   site:
-    image: evns/grav
+    build: ./
     restart: always
     ports:
       - "80:80"
