@@ -16,9 +16,15 @@ USER www-data
 
 # Install grav
 WORKDIR /var/www
-RUN wget https://github.com/getgrav/grav/releases/download/$GRAV_VERSION/grav-admin-v$GRAV_VERSION.zip && \
-    unzip grav-admin-v$GRAV_VERSION.zip && \
-    rm grav-admin-v$GRAV_VERSION.zip && \
+#RUN wget https://github.com/getgrav/grav/releases/download/$GRAV_VERSION/grav-admin-v$GRAV_VERSION.zip && \
+#    unzip grav-admin-v$GRAV_VERSION.zip && \
+#    rm grav-admin-v$GRAV_VERSION.zip && \
+#    cd grav-admin && \
+#    bin/gpm install -f -y admin \
+#    bin/gpm install -f -y git-sync
+
+RUN mkdir grav-admin && \
+    git clone https://github.com/PadineanuHaufe/transformationGravCMS.git /var/www/grav-admin && \
     cd grav-admin && \
     bin/gpm install -f -y admin \
     bin/gpm install -f -y git-sync
