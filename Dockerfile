@@ -1,12 +1,13 @@
 FROM nginx:1.11.9
 
 # Desired version of grav
-ARG GRAV_VERSION=1.1.16
+ARG GRAV_VERSION=1.3.7
 
 # Install dependencies
 RUN apt-get update && \
-    apt-get install -y sudo wget vim unzip php5 php5-curl php5-gd php-pclzip php5-fpm
-ADD https://github.com/krallin/tini/releases/download/v0.13.2/tini /usr/local/bin/tini
+    apt-get install -y sudo wget vim unzip php5 php5-curl php5-gd php-pclzip php5-fpm git-all
+
+ADD https://github.com/krallin/tini/releases/download/v0.16.1/tini /usr/local/bin/tini
 RUN chmod +x /usr/local/bin/tini
 
 # Set user to www-data
@@ -19,7 +20,9 @@ RUN wget https://github.com/getgrav/grav/releases/download/$GRAV_VERSION/grav-ad
     unzip grav-admin-v$GRAV_VERSION.zip && \
     rm grav-admin-v$GRAV_VERSION.zip && \
     cd grav-admin && \
-    bin/gpm install -f -y admin
+    bin/gpm install -f -y admin \
+    bin/gpm install -f -y git-sync
+
 
 # Return to root user
 USER root
